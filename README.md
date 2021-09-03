@@ -2,7 +2,7 @@
 
 Aplicativo para criar e editar perfil.
 
-## Tecnologia 
+## Tecnologia s
 
 O que foi utilizado para criar o app:
 
@@ -12,7 +12,7 @@ O que foi utilizado para criar o app:
 - Mobx
 - Firebase
 
-## Funcionalidade
+## Funcionalidades
 Todas as features do app:
 
 - Login (email-senha)

@@ -2,7 +2,7 @@
 
 Aplicativo para criar e editar perfil.
 
-## Tecnologia s
+## Tecnologias
 
 O que foi utilizado para criar o app:
 

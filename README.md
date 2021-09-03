@@ -1,16 +1,25 @@
 # my_crud
 
-A new Flutter project.
+É para criar e editar perfil.
 
-## Getting Started
+## Tecnologia 
 
-This project is a starting point for a Flutter application.
+O que foi utilizado para criar o app:
 
-A few resources to get you started if this is your first Flutter project:
+- Flutter
+- Dart
+- Modular
+- Mobx
+- Firebase
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## Funcionalidade
+Todas as features do app:
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Login (email-senha)
+- Cadastro (email - senha - foto - CPF - telefone - sexo - estado civil)
+- Home: 
+  - Visualiza perfil
+  - Editar perfil (foto - nome - email - telefone)
+  - LogOff do sistema
+
+[link para donwload](https://drive.google.com/file/d/1gSD-05sbrCG8jZHNP3WXq6Rv8FCXoAqb/view?usp=sharing)

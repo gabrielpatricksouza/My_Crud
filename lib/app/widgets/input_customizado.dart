@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class InputCustomizado extends StatelessWidget {
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final String hintText;
   final String? labelText;
   final String prefix;
@@ -17,16 +17,14 @@ class InputCustomizado extends StatelessWidget {
   final TextStyle? suffixStyle;
   final bool obscure;
   final bool autofocus;
+  final bool readOnly;
   final IconData? icon;
   final GestureDetector? suffixIcon;
   final List<TextInputFormatter>? inputFormatters;
-
-  // final Function(String) validator;
-  // final Function(String) onSaved;
-  final Function(String) onChanged;
+  final Function(String)? onChanged;
 
   InputCustomizado({
-    required this.controller,
+    this.controller,
     this.fillColor = Colors.transparent,
     this.shadowColor = const Color(0xffffff),
     this.enableColor = const Color(0xff1a1919),
@@ -34,29 +32,27 @@ class InputCustomizado extends StatelessWidget {
     this.obscure = false,
     this.autofocus = false,
     this.inputFormatters,
-    // this.validator,
     this.hintStyle,
     this.suffixStyle,
     this.labelStyle,
-    // this.onSaved,
-    required this.onChanged,
+    this.onChanged,
     this.prefix = "",
     this.suffix = "",
     this.labelText,
     this.icon,
     this.suffixIcon,
     this.keyboardType = TextInputType.text,
+    this.readOnly = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      readOnly: readOnly,
       controller: controller,
       obscureText: obscure,
       autofocus: autofocus,
       inputFormatters: inputFormatters,
-      // validator: validator,
-      // onSaved: onSaved,
       onChanged: onChanged,
       keyboardType: keyboardType,
       style: TextStyle(fontSize: 20),

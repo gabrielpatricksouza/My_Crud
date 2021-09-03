@@ -9,19 +9,33 @@ part of 'home_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$HomeStore on _HomeStore, Store {
-  final _$listaTarefasUsuarioAtom =
-      Atom(name: '_HomeStore.listaTarefasUsuario');
+  final _$lerApenasAtom = Atom(name: '_HomeStore.lerApenas');
 
   @override
-  ObservableList<ListaTarefas> get listaTarefasUsuario {
-    _$listaTarefasUsuarioAtom.reportRead();
-    return super.listaTarefasUsuario;
+  bool get lerApenas {
+    _$lerApenasAtom.reportRead();
+    return super.lerApenas;
   }
 
   @override
-  set listaTarefasUsuario(ObservableList<ListaTarefas> value) {
-    _$listaTarefasUsuarioAtom.reportWrite(value, super.listaTarefasUsuario, () {
-      super.listaTarefasUsuario = value;
+  set lerApenas(bool value) {
+    _$lerApenasAtom.reportWrite(value, super.lerApenas, () {
+      super.lerApenas = value;
+    });
+  }
+
+  final _$imageFileAtom = Atom(name: '_HomeStore.imageFile');
+
+  @override
+  File? get imageFile {
+    _$imageFileAtom.reportRead();
+    return super.imageFile;
+  }
+
+  @override
+  set imageFile(File? value) {
+    _$imageFileAtom.reportWrite(value, super.imageFile, () {
+      super.imageFile = value;
     });
   }
 
@@ -40,36 +54,52 @@ mixin _$HomeStore on _HomeStore, Store {
     });
   }
 
-  final _$descendingAtom = Atom(name: '_HomeStore.descending');
+  final _$pegarImagemAsyncAction = AsyncAction('_HomeStore.pegarImagem');
 
   @override
-  bool get descending {
-    _$descendingAtom.reportRead();
-    return super.descending;
+  Future pegarImagem(BuildContext context) {
+    return _$pegarImagemAsyncAction.run(() => super.pegarImagem(context));
   }
 
-  @override
-  set descending(bool value) {
-    _$descendingAtom.reportWrite(value, super.descending, () {
-      super.descending = value;
-    });
-  }
-
-  final _$buscarListaAsyncAction = AsyncAction('_HomeStore.buscarLista');
+  final _$_salvarAlteracoesAsyncAction =
+      AsyncAction('_HomeStore._salvarAlteracoes');
 
   @override
-  Future buscarLista() {
-    return _$buscarListaAsyncAction.run(() => super.buscarLista());
+  Future _salvarAlteracoes(dynamic context) {
+    return _$_salvarAlteracoesAsyncAction
+        .run(() => super._salvarAlteracoes(context));
   }
 
   final _$_HomeStoreActionController = ActionController(name: '_HomeStore');
 
   @override
-  dynamic mudarOrdem(Map<dynamic, dynamic> dados) {
-    final _$actionInfo =
-        _$_HomeStoreActionController.startAction(name: '_HomeStore.mudarOrdem');
+  dynamic alterarLerApenas(bool value) {
+    final _$actionInfo = _$_HomeStoreActionController.startAction(
+        name: '_HomeStore.alterarLerApenas');
     try {
-      return super.mudarOrdem(dados);
+      return super.alterarLerApenas(value);
+    } finally {
+      _$_HomeStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic buscarDadosUsuario() {
+    final _$actionInfo = _$_HomeStoreActionController.startAction(
+        name: '_HomeStore.buscarDadosUsuario');
+    try {
+      return super.buscarDadosUsuario();
+    } finally {
+      _$_HomeStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic limparImagem() {
+    final _$actionInfo = _$_HomeStoreActionController.startAction(
+        name: '_HomeStore.limparImagem');
+    try {
+      return super.limparImagem();
     } finally {
       _$_HomeStoreActionController.endAction(_$actionInfo);
     }
@@ -78,9 +108,9 @@ mixin _$HomeStore on _HomeStore, Store {
   @override
   String toString() {
     return '''
-listaTarefasUsuario: ${listaTarefasUsuario},
-carregando: ${carregando},
-descending: ${descending}
+lerApenas: ${lerApenas},
+imageFile: ${imageFile},
+carregando: ${carregando}
     ''';
   }
 }

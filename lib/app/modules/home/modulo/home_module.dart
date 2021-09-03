@@ -1,7 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:my_crud/app/modules/home/store/home_store.dart';
-import 'package:my_crud/app/modules/home/view/list_page.dart';
-import 'package:my_crud/app/modules/home/view/list_todo.dart';
+import 'package:my_crud/app/modules/home/view/home_page.dart';
  
 class HomeModule extends Module {
   @override
@@ -11,7 +10,6 @@ class HomeModule extends Module {
 
  @override
  final List<ModularRoute> routes = [
-   ChildRoute(Modular.initialRoute, child: (_, args) => ListPage()),
-   ChildRoute("/listTodo", child: (_, args) => ListTodo( dadosTarefa: args.data)),
+   ChildRoute("/", child: (_, args) => HomePage()),
  ];
 }

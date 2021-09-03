@@ -38,16 +38,33 @@ dependencies:
     #Biblioteca para validar email
   email_validator: ^2.0.1
 
+    #Biblioteca para pegar imagens pela camera ou na galeria
+  image_picker: ^0.8.4
+
+    #Biblioteca para carregamento de imagem
+  cached_network_image: ^3.1.0
+
+    # Usado para cortar / girar imagens selecionadas do dispositivo do usuário
+  image_cropper: ^1.4.1
+
+    #Biblioteca para formatos de input
+  brasil_fields: ^1.1.4
+
+    #Biblioteca de Icons
+  font_awesome_flutter: ^9.1.0
+
     #Bibliotecas para o Firebase
   firebase_core: ^1.6.0
   firebase_auth: ^3.1.0
   cloud_firestore: ^2.5.1
+  firebase_storage: ^10.0.3
 
 dev_dependencies:
-  flutter_modular_test: ^1.0.1
+  flutter_modular_test: ^1.0.3
   flutter_test:
     sdk: flutter
   mobx_codegen: ^2.0.2
+  build_runner: ^2.1.2
 
 
 # The following section is specific to Flutter.

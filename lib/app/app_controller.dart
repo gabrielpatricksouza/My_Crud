@@ -1,6 +1,6 @@
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:my_crud/app/services/database.dart';
+import 'package:my_crud/app/services/database_global.dart';
 
 import 'model/Usuario.dart';
 

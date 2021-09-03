@@ -17,12 +17,10 @@ class ValidarCadastro{
         this.nome.isNotEmpty &&
         this.email.isNotEmpty
     ){
-
       if(
       //Se todos os campo forem maior que 3 caracteres
-          this.nome.length > 3 &&
-          this.email.length        > 3
-
+          this.nome.length  > 3 &&
+          this.email.length > 3
       ){
         //Validando e-mail (retorna bool)
         if(EmailValidator.validate(this.email)){
@@ -65,7 +63,7 @@ class ValidarCadastro{
       }
 
     }else{
-      return "Os campos precisam ser preenchidos";
+      return "Todos campos precisam ser preenchidos";
     }
 
   }

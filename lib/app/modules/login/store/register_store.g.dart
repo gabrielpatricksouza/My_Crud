@@ -9,93 +9,78 @@ part of 'register_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$RegisterStore on _RegisterStore, Store {
-  final _$nomeAtom = Atom(name: '_RegisterStore.nome');
+  final _$valorSexoAtom = Atom(name: '_RegisterStore.valorSexo');
 
   @override
-  String get nome {
-    _$nomeAtom.reportRead();
-    return super.nome;
+  int get valorSexo {
+    _$valorSexoAtom.reportRead();
+    return super.valorSexo;
   }
 
   @override
-  set nome(String value) {
-    _$nomeAtom.reportWrite(value, super.nome, () {
-      super.nome = value;
+  set valorSexo(int value) {
+    _$valorSexoAtom.reportWrite(value, super.valorSexo, () {
+      super.valorSexo = value;
     });
   }
 
-  final _$emailAtom = Atom(name: '_RegisterStore.email');
+  final _$estadoCivilAtom = Atom(name: '_RegisterStore.estadoCivil');
 
   @override
-  String get email {
-    _$emailAtom.reportRead();
-    return super.email;
+  String? get estadoCivil {
+    _$estadoCivilAtom.reportRead();
+    return super.estadoCivil;
   }
 
   @override
-  set email(String value) {
-    _$emailAtom.reportWrite(value, super.email, () {
-      super.email = value;
+  set estadoCivil(String? value) {
+    _$estadoCivilAtom.reportWrite(value, super.estadoCivil, () {
+      super.estadoCivil = value;
     });
   }
 
-  final _$senha1Atom = Atom(name: '_RegisterStore.senha1');
+  final _$visualizarSenhaAtom = Atom(name: '_RegisterStore.visualizarSenha');
 
   @override
-  String get senha1 {
-    _$senha1Atom.reportRead();
-    return super.senha1;
+  bool get visualizarSenha {
+    _$visualizarSenhaAtom.reportRead();
+    return super.visualizarSenha;
   }
 
   @override
-  set senha1(String value) {
-    _$senha1Atom.reportWrite(value, super.senha1, () {
-      super.senha1 = value;
+  set visualizarSenha(bool value) {
+    _$visualizarSenhaAtom.reportWrite(value, super.visualizarSenha, () {
+      super.visualizarSenha = value;
     });
   }
 
-  final _$senha2Atom = Atom(name: '_RegisterStore.senha2');
+  final _$visualizarSenha2Atom = Atom(name: '_RegisterStore.visualizarSenha2');
 
   @override
-  String get senha2 {
-    _$senha2Atom.reportRead();
-    return super.senha2;
+  bool get visualizarSenha2 {
+    _$visualizarSenha2Atom.reportRead();
+    return super.visualizarSenha2;
   }
 
   @override
-  set senha2(String value) {
-    _$senha2Atom.reportWrite(value, super.senha2, () {
-      super.senha2 = value;
+  set visualizarSenha2(bool value) {
+    _$visualizarSenha2Atom.reportWrite(value, super.visualizarSenha2, () {
+      super.visualizarSenha2 = value;
     });
   }
 
-  final _$visualizarAtom = Atom(name: '_RegisterStore.visualizar');
+  final _$imageFileAtom = Atom(name: '_RegisterStore.imageFile');
 
   @override
-  bool get visualizar {
-    _$visualizarAtom.reportRead();
-    return super.visualizar;
+  File? get imageFile {
+    _$imageFileAtom.reportRead();
+    return super.imageFile;
   }
 
   @override
-  set visualizar(bool value) {
-    _$visualizarAtom.reportWrite(value, super.visualizar, () {
-      super.visualizar = value;
-    });
-  }
-
-  final _$visualizar2Atom = Atom(name: '_RegisterStore.visualizar2');
-
-  @override
-  bool get visualizar2 {
-    _$visualizar2Atom.reportRead();
-    return super.visualizar2;
-  }
-
-  @override
-  set visualizar2(bool value) {
-    _$visualizar2Atom.reportWrite(value, super.visualizar2, () {
-      super.visualizar2 = value;
+  set imageFile(File? value) {
+    _$imageFileAtom.reportWrite(value, super.imageFile, () {
+      super.imageFile = value;
     });
   }
 
@@ -129,6 +114,13 @@ mixin _$RegisterStore on _RegisterStore, Store {
     });
   }
 
+  final _$pegarImagemAsyncAction = AsyncAction('_RegisterStore.pegarImagem');
+
+  @override
+  Future pegarImagem(BuildContext context) {
+    return _$pegarImagemAsyncAction.run(() => super.pegarImagem(context));
+  }
+
   final _$_cadastrarUsuarioAsyncAction =
       AsyncAction('_RegisterStore._cadastrarUsuario');
 
@@ -142,66 +134,44 @@ mixin _$RegisterStore on _RegisterStore, Store {
       ActionController(name: '_RegisterStore');
 
   @override
-  void setNome(String text) {
+  dynamic mudarValorSexo(int value) {
     final _$actionInfo = _$_RegisterStoreActionController.startAction(
-        name: '_RegisterStore.setNome');
+        name: '_RegisterStore.mudarValorSexo');
     try {
-      return super.setNome(text);
+      return super.mudarValorSexo(value);
     } finally {
       _$_RegisterStoreActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void setEmail(String text) {
+  dynamic mudarEstadoCivil(String valueBox) {
     final _$actionInfo = _$_RegisterStoreActionController.startAction(
-        name: '_RegisterStore.setEmail');
+        name: '_RegisterStore.mudarEstadoCivil');
     try {
-      return super.setEmail(text);
+      return super.mudarEstadoCivil(valueBox);
     } finally {
       _$_RegisterStoreActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void setsenha1(String text) {
+  void boolVisualizarSenha() {
     final _$actionInfo = _$_RegisterStoreActionController.startAction(
-        name: '_RegisterStore.setsenha1');
+        name: '_RegisterStore.boolVisualizarSenha');
     try {
-      return super.setsenha1(text);
+      return super.boolVisualizarSenha();
     } finally {
       _$_RegisterStoreActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void setsenha2(String text) {
+  void boolVisualizarSenha2() {
     final _$actionInfo = _$_RegisterStoreActionController.startAction(
-        name: '_RegisterStore.setsenha2');
+        name: '_RegisterStore.boolVisualizarSenha2');
     try {
-      return super.setsenha2(text);
-    } finally {
-      _$_RegisterStoreActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void boolVisualizar() {
-    final _$actionInfo = _$_RegisterStoreActionController.startAction(
-        name: '_RegisterStore.boolVisualizar');
-    try {
-      return super.boolVisualizar();
-    } finally {
-      _$_RegisterStoreActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void boolVisualizar2() {
-    final _$actionInfo = _$_RegisterStoreActionController.startAction(
-        name: '_RegisterStore.boolVisualizar2');
-    try {
-      return super.boolVisualizar2();
+      return super.boolVisualizarSenha2();
     } finally {
       _$_RegisterStoreActionController.endAction(_$actionInfo);
     }
@@ -219,36 +189,13 @@ mixin _$RegisterStore on _RegisterStore, Store {
   }
 
   @override
-  void validandoNomeEmail(dynamic context) {
-    final _$actionInfo = _$_RegisterStoreActionController.startAction(
-        name: '_RegisterStore.validandoNomeEmail');
-    try {
-      return super.validandoNomeEmail(context);
-    } finally {
-      _$_RegisterStoreActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void validandoSenhas(dynamic context) {
-    final _$actionInfo = _$_RegisterStoreActionController.startAction(
-        name: '_RegisterStore.validandoSenhas');
-    try {
-      return super.validandoSenhas(context);
-    } finally {
-      _$_RegisterStoreActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
-nome: ${nome},
-email: ${email},
-senha1: ${senha1},
-senha2: ${senha2},
-visualizar: ${visualizar},
-visualizar2: ${visualizar2},
+valorSexo: ${valorSexo},
+estadoCivil: ${estadoCivil},
+visualizarSenha: ${visualizarSenha},
+visualizarSenha2: ${visualizarSenha2},
+imageFile: ${imageFile},
 carregando: ${carregando},
 next: ${next}
     ''';

@@ -110,8 +110,8 @@ class SingIn extends StatelessWidget {
                       ),
                     ),
                   ),
-              ),
-                )
+                ),
+              )
             ],
           ),
         )

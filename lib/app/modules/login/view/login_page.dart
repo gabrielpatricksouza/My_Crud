@@ -19,7 +19,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginStore> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-                "MEU\nTO-DO",
+                "MEU\nCRUD",
               style: TextStyle(
                 fontSize: 55,
                 fontWeight: FontWeight.bold,
@@ -46,17 +46,6 @@ class _LoginPageState extends ModularState<LoginPage, LoginStore> {
               color: Color(0xff7C83FD),
             ),
             SizedBox(height: 20),
-
-
-            CustomAnimatedButton(
-              onTap:  ()=> Modular.to.pushNamed("/login/intro"),
-              widhtMultiply: 0.3,
-              iconBool: true,
-              icon: Icons.help_outline_outlined,
-              height: 60,
-              text: "Sobre",
-              color: Colors.deepPurple
-            ),
           ],
         ),
       ),

@@ -30,7 +30,7 @@ class AppWidget extends StatelessWidget {
               supportedLocales: [
                 const Locale('pt', 'BR'), // portugues
               ],
-              title: 'Todo-list',
+              title: 'My Crud',
               theme:ThemeData(
                   brightness: Brightness.dark,
                   primaryColor: Colors.white

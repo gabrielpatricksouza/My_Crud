@@ -1,13 +1,17 @@
+import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:my_crud/app/modules/login/store/register_store.dart';
 import 'package:my_crud/app/widgets/custom_animated_button.dart';
+import 'package:my_crud/app/widgets/custom_change_choice.dart';
 import 'package:my_crud/app/widgets/input_customizado.dart';
 
 class SingUp extends StatelessWidget {
-  final RegisterStore _controllerLogin = Modular.get();
+  final RegisterStore controller = Modular.get();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -15,46 +19,51 @@ class SingUp extends StatelessWidget {
       onTap: () {
         FocusScope.of(context).unfocus();
       },
-      child: Scaffold(
-          backgroundColor: Colors.deepPurpleAccent,
-          body: Observer(
-            builder: (_) => Stack(
+      child: Observer(
+          builder: (_) =>Scaffold(
+            key: scaffoldKey,
+            backgroundColor: Colors.deepPurpleAccent,
+            body:  Stack(
               children: [
-                if (_controllerLogin.carregando == false)
+                if (controller.carregando == false)
                   Positioned(
                     top: 20,
                     left: 0,
                     child: IconButton(
                         icon: Icon(Icons.arrow_back_ios_outlined),
                         iconSize: 30,
-                        onPressed: () => Navigator.pop(context)),
+                        onPressed: (){
+                          controller.next == true ? controller.mudarNext() : Modular.to.pop();
+                          FocusScope.of(context).unfocus();
+                        }),
                   ),
-                _controllerLogin.carregando
-                    ? Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Center(child: CircularProgressIndicator())
-                          ],
-                        ),
-                      )
-                    : Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 38.0),
-                        child: NotificationListener<
-                            OverscrollIndicatorNotification>(
-                          onNotification:
-                              (OverscrollIndicatorNotification overscroll) {
-                            overscroll.disallowGlow();
-                            return true;
-                          },
-                          child: SingleChildScrollView(
-                            child: Observer(
-                              builder: (_) => Column(
+                controller.carregando
+                  ? Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Center(child: CircularProgressIndicator())
+                        ],
+                      ),
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 38.0),
+                      child: NotificationListener<
+                          OverscrollIndicatorNotification>(
+                        onNotification:
+                            (OverscrollIndicatorNotification overscroll) {
+                          overscroll.disallowGlow();
+                          return true;
+                        },
+                        child: SingleChildScrollView(
+                          child: Observer(
+                            builder: (_) => SafeArea(
+                              child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  SizedBox(
-                                    height: 100,
-                                  ),
+                                  SizedBox(height: controller.next != true ? 100 : 40,),
+
+                                  if(controller.next != true)
                                   Text(
                                     "MEU\nCADASTRO",
                                     style: TextStyle(
@@ -63,83 +72,218 @@ class SingUp extends StatelessWidget {
                                         color: Colors.white70),
                                     textAlign: TextAlign.center,
                                   ),
-                                  SizedBox(
-                                    height: 100,
-                                  ),
-                                  if (_controllerLogin.next != true) ...[
-                                    InputCustomizado(
-                                      icon: Icons.person,
-                                      labelText: "Nome",
-                                      labelStyle:
-                                          TextStyle(color: Colors.white),
-                                      fillColor: Colors.white.withOpacity(0.2),
-                                      keyboardType: TextInputType.text,
-                                      controller:
-                                          _controllerLogin.nomeController,
-                                      onChanged: _controllerLogin.setNome,
-                                    ),
-                                    SizedBox(height: 20),
-                                    InputCustomizado(
-                                      icon: Icons.mail,
-                                      labelText: "E-mail",
-                                      labelStyle:
-                                          TextStyle(color: Colors.white),
-                                      fillColor: Colors.white.withOpacity(0.2),
-                                      keyboardType: TextInputType.emailAddress,
-                                      controller:
-                                          _controllerLogin.emailController,
-                                      onChanged: _controllerLogin.setEmail,
-                                    ),
-                                    SizedBox(height: 20),
+                                  SizedBox(height: 30,),
+
+                                  if (controller.next != true) ...[
+                                    Container(
+                                      height: MediaQuery.of(context).size.height / 3.5,
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        children: [
+                                          InputCustomizado(
+                                            icon: Icons.person,
+                                            hintText: "Nome",
+                                            hintStyle:
+                                            TextStyle(color: Colors.white),
+                                            fillColor: Colors.white.withOpacity(0.2),
+                                            keyboardType: TextInputType.text,
+                                            controller:
+                                            controller.nomeController,
+                                          ),
+                                          SizedBox(height: 20),
+
+                                          InputCustomizado(
+                                            icon: Icons.mail,
+                                            hintText: "E-mail",
+                                            hintStyle:
+                                            TextStyle(color: Colors.white),
+                                            fillColor: Colors.white.withOpacity(0.2),
+                                            keyboardType: TextInputType.emailAddress,
+                                            controller: controller.emailController,
+                                          ),
+                                          SizedBox(height: 20),
+                                        ],
+                                      ),
+                                    )
                                   ] else ...[
+
+                                    Observer(
+                                      builder:(_) =>  GestureDetector(
+                                        child: Center(
+                                          child: controller.imageFile == null
+                                            ? CircleAvatar(
+                                                radius: 60,
+                                                backgroundColor: Colors.white.withOpacity(0.2),
+                                                child: Icon(Icons.camera_alt_outlined, size: 40, color: Colors.white),
+                                              )
+                                            : CircleAvatar(
+                                                radius: 60,
+                                                backgroundImage: FileImage(controller.imageFile!),
+                                                )),
+                                        onTap: () {
+                                          FocusScope.of(context).unfocus();
+                                          controller.pegarImagem(context);
+                                        },
+                                      ),
+                                    ),
+                                    SizedBox(height: 10),
+                                    Text("Foto do usuário",
+                                        textAlign: TextAlign.center),
+                                    SizedBox(height: 20),
+
+                                    InputCustomizado(
+                                      icon: Icons.phone_android,
+                                      hintText: "Telefone",
+                                      hintStyle: TextStyle(color: Colors.white),
+                                      fillColor: Colors.white.withOpacity(0.2),
+                                      enableColor: Colors.white,
+                                      keyboardType: TextInputType.phone,
+                                      controller: controller.tellController,
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.digitsOnly,
+                                        TelefoneInputFormatter(),
+                                      ],
+                                    ),
+                                    SizedBox(height: 20),
+
+                                    InputCustomizado(
+                                      icon: Icons.credit_card_outlined,
+                                      hintText: "CPF",
+                                      hintStyle: TextStyle(color: Colors.white),
+                                      fillColor: Colors.white.withOpacity(0.2),
+                                      enableColor: Colors.white,
+                                      keyboardType: TextInputType.number,
+                                      controller: controller.cpfController,
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.digitsOnly,
+                                        CpfInputFormatter(),
+                                      ],
+                                    ),
+                                    SizedBox(height: 20),
+
+                                    Observer(
+                                      builder: (_) => CustomChangeChoice(
+                                        function: (int num) {
+                                          FocusScope.of(context).unfocus();
+                                          controller.mudarValorSexo(num);
+                                        },
+                                        valueSex: controller.valorSexo,
+                                      ),
+                                    ),
+                                    SizedBox(height: 20),
+
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Expanded(
+                                          flex: 2,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(left: 8),
+                                            child: Text(
+                                              "Estado Civil :",
+                                              style: TextStyle(
+                                                fontSize: 20,
+                                                color: Colors.white.withOpacity(0.8),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          flex: 2,
+                                          child: Material(
+                                            borderRadius: BorderRadius.circular(20),
+                                            elevation: 2.0,
+                                            color: Colors.white,
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 15, right: 20),
+                                              child: Observer(
+                                                builder: (_) => DropdownButton(
+                                                  dropdownColor: Colors.white,
+                                                  focusColor: Colors.white,
+                                                  style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 18,
+                                                  ),
+                                                  value: controller.estadoCivil,
+                                                  items: [
+                                                    DropdownMenuItem(
+                                                        child: Text("Solteiro"),
+                                                        value: "Solteiro"),
+                                                    DropdownMenuItem(
+                                                        child: Text("Casado"),
+                                                        value: "Casado"),
+                                                    DropdownMenuItem(
+                                                        child: Text("Separado"),
+                                                        value: "Separado"),
+                                                    DropdownMenuItem(
+                                                        child: Text("Divorciado"),
+                                                        value: "Divorciado"),
+                                                    DropdownMenuItem(
+                                                        child: Text("Viúvo"),
+                                                        value: "Viúvo"),
+                                                  ],
+                                                  onChanged: (val) {
+                                                    FocusScope.of(context).unfocus();
+                                                    controller.mudarEstadoCivil(val.toString());
+                                                  },
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(height: 20),
+
                                     InputCustomizado(
                                       icon: Icons.lock,
-                                      labelText: "Senha",
-                                      labelStyle:
+                                      hintText: "Senha",
+                                      hintStyle:
                                           TextStyle(color: Colors.white),
                                       fillColor: Colors.white.withOpacity(0.2),
+                                      enableColor: Colors.white,
                                       suffixIcon: GestureDetector(
-                                        onTap: _controllerLogin.boolVisualizar,
+                                        onTap: controller.boolVisualizarSenha,
                                         child: Icon(
-                                          _controllerLogin.visualizar
+                                          controller.visualizarSenha
                                               ? Icons.visibility_off
                                               : Icons.visibility,
                                           color:  Colors.white,
                                         ),
                                       ),
                                       controller:
-                                          _controllerLogin.senhaController,
-                                      obscure: _controllerLogin.visualizar,
-                                      onChanged: _controllerLogin.setsenha1,
+                                          controller.senhaController,
+                                      obscure: controller.visualizarSenha,
                                       keyboardType:
                                           TextInputType.visiblePassword,
                                     ),
                                     SizedBox(height: 20),
+
                                     InputCustomizado(
                                       icon: Icons.lock,
                                       hintText: "Confirmar Senha",
-                                      labelStyle:
-                                      TextStyle(color: Colors.white),
+                                      hintStyle: TextStyle(color: Colors.white),
                                       fillColor: Colors.white.withOpacity(0.2),
+                                      enableColor: Colors.white,
                                       suffixIcon: GestureDetector(
-                                        onTap: _controllerLogin.boolVisualizar2,
+                                        onTap: controller.boolVisualizarSenha2,
                                         child: Icon(
-                                          _controllerLogin.visualizar2
+                                          controller.visualizarSenha2
                                               ? Icons.visibility_off
                                               : Icons.visibility,
                                           color:  Colors.white,
                                         ),
                                       ),
                                       controller:
-                                          _controllerLogin.senha2Controller,
-                                      obscure: _controllerLogin.visualizar2,
-                                      onChanged: _controllerLogin.setsenha2,
+                                          controller.senha2Controller,
+                                      obscure: controller.visualizarSenha2,
                                       keyboardType:
                                           TextInputType.visiblePassword,
                                     ),
-                                    SizedBox(height: 20),
+                                    SizedBox(height: 10),
                                   ],
-                                  _controllerLogin.next == false
+                                  controller.next == false
                                       ? Padding(
                                           padding:
                                               const EdgeInsets.only(top: 10.0),
@@ -147,8 +291,7 @@ class SingUp extends StatelessWidget {
                                             children: [
                                               CustomAnimatedButton(
                                                 onTap: () {
-                                                  _controllerLogin
-                                                      .validandoNomeEmail(context);
+                                                  controller.validandoNomeEmail(context);
                                                   FocusScope.of(context).unfocus();
                                                 },
                                                 widhtMultiply: 1,
@@ -166,8 +309,7 @@ class SingUp extends StatelessWidget {
                                             children: [
                                               CustomAnimatedButton(
                                                 onTap: () {
-                                                  _controllerLogin
-                                                      .validandoSenhas(context);
+                                                  controller.validandoSenhas(context);
                                                   FocusScope.of(context).unfocus();
                                                 },
                                                 widhtMultiply: 1,
@@ -176,17 +318,6 @@ class SingUp extends StatelessWidget {
                                                 text: "Cadastrar",
                                               ),
                                               SizedBox(height: 20.0,),
-
-                                              CustomAnimatedButton(
-                                                onTap: () {
-                                                  _controllerLogin.mudarNext();
-                                                  FocusScope.of(context).unfocus();
-                                                },
-                                                widhtMultiply: 1,
-                                                height: 60,
-                                                color: Color(0XFF338fa0),
-                                                text: "Voltar",
-                                              ),
                                             ],
                                           ),
                                         ),
@@ -196,10 +327,12 @@ class SingUp extends StatelessWidget {
                             ),
                           ),
                         ),
-                      )
+                      ),
+                    )
               ],
             ),
-          )),
+          )
+      ),
     );
   }
 }

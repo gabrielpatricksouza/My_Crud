@@ -1,6 +1,6 @@
 # My Crud
 
-É para criar e editar perfil.
+Aplicativo para criar e editar perfil.
 
 ## Tecnologia 
 
@@ -22,4 +22,4 @@ Todas as features do app:
   - Editar perfil (foto - nome - email - telefone)
   - LogOff do sistema
 
-[link para donwload](https://drive.google.com/file/d/1gSD-05sbrCG8jZHNP3WXq6Rv8FCXoAqb/view?usp=sharing)
+[link para download](https://drive.google.com/file/d/1gSD-05sbrCG8jZHNP3WXq6Rv8FCXoAqb/view?usp=sharing)
